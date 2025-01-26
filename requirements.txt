@@ -5,3 +5,8 @@ seaborn
 matplotlib
 python-dotenv
 ipykernel
+langchain
+langchain-openai
+langgraph
+psycopg[binary,pool]
+langgraph.checkpoint.postgres
