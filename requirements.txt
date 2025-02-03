@@ -10,3 +10,4 @@ langchain-openai
 langgraph
 psycopg[binary,pool]
 langgraph.checkpoint.postgres
+nemoguardrails
