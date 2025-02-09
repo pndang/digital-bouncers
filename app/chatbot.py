@@ -17,7 +17,7 @@ db_params = {
     "host": st.secrets["DB_HOST"],
     "port": "5432" 
 }
-db = SQLDatabase.from_uri("")
+db = SQLDatabase.from_uri(f'postgresql://{db_params["user"]}:{db_params["password"]}@{db_params["host"]}:{db_params["port"]}/{db_params["dbname"]}', include_tables=["smart_home_data"])
 # Define SQL query
 query= """
 SELECT * FROM smart_home_data
@@ -39,7 +39,9 @@ llm = ChatOpenAI(
     verbose=True  
 )
 
+
 db_toolkit = SQLDatabaseToolkit(db=db, llm=llm)
+
 agent_executor = create_sql_agent(
     llm=llm,
     toolkit=db_toolkit,

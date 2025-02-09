@@ -6,8 +6,11 @@ matplotlib
 python-dotenv
 ipykernel
 langchain
+langchain-community
 langchain-openai
 langgraph
 psycopg[binary,pool]
+psycopg2
 langgraph.checkpoint.postgres
 nemoguardrails
+streamlit
