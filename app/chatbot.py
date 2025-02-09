@@ -15,7 +15,7 @@ db_params = {
     "user": st.secrets["DB_USER"],
     "password": st.secrets["DB_PASSWORD"],
     "host": st.secrets["DB_HOST"],
-    "port": "5432"
+    "port": "5432" 
 }
 db = SQLDatabase.from_uri("postgresql://udtgpmu99n4j6r:p94fcaffade361eec929012ea55a59a0038a1794ee7363349212b44ebf2e33a1c@cd5gks8n4kb20g.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d8qdtku8976m7a", include_tables=["smart_home_data"])
 # Define SQL query
