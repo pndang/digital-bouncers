@@ -18,6 +18,7 @@ db_params = {
     "port": "5432" 
 }
 db = SQLDatabase.from_uri(f'postgresql://{db_params["user"]}:{db_params["password"]}@{db_params["host"]}:{db_params["port"]}/{db_params["dbname"]}', include_tables=["smart_home_data"])
+
 # Define SQL query
 query= """
 SELECT * FROM smart_home_data
