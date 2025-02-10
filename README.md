@@ -19,5 +19,10 @@ Please contact eyc004@ucsd.edu, ddli@ucsd.edu, bzou@ucsd.edu, and pndang@ucsd.ed
 
 
 ## How to use the App
+For context, we designed this chatbot for users to be able to ask their smart home assistant questions about their energy consumption. So imagine you are the owner of a home, and this is your personal chatbot assistant which is trained on your home energy data. You can ask it questions about what parts of the house are consuming the most energy, and recommendations for energy savings.  
+
 After running step 3 in the section above, it may take a while before you are able to load the app. This is because it loads in the models when you begin your run. As of the checkpoint, the commands will direct you towards a guardrails version of the chatbot, which will judge if your question is within the realm of our smart home dataset. You can ask questions related to energy consumption, and the agent will respond if it is within scope or not. The response may take a bit of time, so please wait. We have another chatbot prototype which interacts with Text2SQL, and we plan on chaining the two. If the user asks a question related to smart homes, we will allow it to trigger the Text2SQL sequence. Otherwise, we will reject the question. 
+
+Here's a demo of what the conversation may look like:
+![Demo Response](/images/demo_response.png)
 
