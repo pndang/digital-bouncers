@@ -12,26 +12,28 @@ from langchain.chat_models import ChatOpenAI
 
 from nemoguardrails import LLMRails, RailsConfig
 
-# OPENAI_API_KEY = 
-# DB_URI =
-# DB_USER = ""
-# DB_PASSWORD = ""
-# DB_HOST = ""
+# Load secrets from env vars
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
+OPENAI_API_KEY = os.getenv("API_KEY")
+DB_URI = os.getenv("DB_URI")
 
-# PostgreSQL database connection parameters
+# postgreSQL database connection params
 db_params = {
-    "dbname": "d8qdtku8976m7a",
-    # "user": st.secrets["DB_USER"],
+    "dbname": DB_NAME,
     "user": DB_USER,
-    # "password": st.secrets["DB_PASSWORD"],
     "password": DB_PASSWORD,
-    # "host": st.secrets["DB_HOST"],
     "host": DB_HOST,
-    "port": "5432" 
+    "port": "5432"
 }
+
+# create the database connection
 db = SQLDatabase.from_uri(DB_URI)
-# Define SQL query
-query= """
+
+# define SQL query
+query = """
 SELECT * FROM smart_home_data
 """
 
@@ -41,14 +43,13 @@ with psycopg2.connect(**db_params) as conn:
         data = cur.fetchall()
         column_names = [desc[0] for desc in cur.description]
 
-df = pd.DataFrame(data, columns=column_names) 
+df = pd.DataFrame(data, columns=column_names)
 
-# client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])  
+# initialize openai client
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 llm = ChatOpenAI(
-    # openai_api_key=st.secrets["OPENAI_API_KEY"],
-    openai_api_key=OPENAI_API_KEY, 
+    openai_api_key=OPENAI_API_KEY,
     temperature=0,
     verbose=True  
 )
@@ -78,13 +79,13 @@ if prompt := st.chat_input("What is up?"):
         # input moderation guardrails
         if prompt:
             print(prompt)
-            # apply NeMo
+            
             import openai
             os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
             openai.api_key = OPENAI_API_KEY  
 
-            # Load NeMo Guardrails configuration
-            config = RailsConfig.from_path("")
+            # Load NeMo Guardrails config
+            config = RailsConfig.from_path("config")
             rails = LLMRails(config)
             
             check_input = rails.generate(messages=[{
@@ -94,6 +95,8 @@ if prompt := st.chat_input("What is up?"):
 
             print(f"Pass input moderation: {check_input['content']}")
 
+            st.markdown(f"Pass input moderation: {check_input['content']}")
+
     with st.chat_message("assistant"):
         pass
         # response = agent_executor.run(prompt)  
@@ -101,3 +104,4 @@ if prompt := st.chat_input("What is up?"):
         # st.markdown(response)
 
     # st.session_state.messages.append({"role": "assistant", "content": response})
+A
