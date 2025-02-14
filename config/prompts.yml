@@ -22,3 +22,4 @@ prompts:
 
       Question: Should the user inquiry be blocked (Yes or No)?
       Answer:
+  - task: self_check_output
