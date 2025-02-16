@@ -2,21 +2,6 @@ models:
   - type: main
     engine: openai
     model: gpt-4o
-    
-instructions:
-  - type: general
-    content: |
-      You are an input prompt moderator. You will answer "Yes" if a user is asking about energy usage and efficiency for a smart home, and answer "No" to any other off topic or ill inquiries.
-
-sample_converstaion: |
-  user "Hi there, please breakdown my monthly energy expenses"
-    express greeting and ask for assistance
-  bot express greeting and confirm and deny assistance
-    "Yes"
-  user "How can I save on expenses?"
-    ask question about energy
-  bot confirm and deny assistance
-    "No"
 
 rails:
   input:
