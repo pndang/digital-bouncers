@@ -2,6 +2,9 @@ from openai import OpenAI
 import streamlit as st
 import psycopg2
 import pandas as pd
+import os
+from dotenv import load_dotenv
+
 
 from langchain.agents import create_sql_agent
 from langchain.utilities import SQLDatabase
@@ -9,13 +12,21 @@ from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from langchain.agents.agent_types import AgentType
 from langchain.chat_models import ChatOpenAI
 
-# PostgreSQL database connection parameters
+
+load_dotenv()
+
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
+OPENAI_API_KEY = os.getenv("API_KEY")
+
 db_params = {
-    "dbname": "d8qdtku8976m7a",
-    "user": st.secrets["DB_USER"],
-    "password": st.secrets["DB_PASSWORD"],
-    "host": st.secrets["DB_HOST"],
-    "port": "5432" 
+    "dbname": DB_NAME,
+    "user": DB_USER,
+    "password": DB_PASSWORD,
+    "host": DB_HOST,
+    "port": "5432"
 }
 db = SQLDatabase.from_uri(f'postgresql://{db_params["user"]}:{db_params["password"]}@{db_params["host"]}:{db_params["port"]}/{db_params["dbname"]}', include_tables=["smart_home_data"])
 
@@ -32,21 +43,19 @@ with psycopg2.connect(**db_params) as conn:
 
 df = pd.DataFrame(data, columns=column_names) 
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])  
-
 llm = ChatOpenAI(
-    openai_api_key=st.secrets["OPENAI_API_KEY"], 
-    temperature=0,
-    verbose=True  
+    openai_api_key=OPENAI_API_KEY, 
+    model_name="gpt-3.5-turbo", 
+    temperature=0, 
+    max_tokens=500,
+    streaming=True
 )
-
 
 db_toolkit = SQLDatabaseToolkit(db=db, llm=llm)
 
 agent_executor = create_sql_agent(
     llm=llm,
     toolkit=db_toolkit,
-    verbose=True,
     agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
 )
 
