@@ -2,7 +2,7 @@ prompts:
   - task: self_check_input
     content: |
       Your task is to check if the user message below is a canonical inquiry related to energy usage or energy efficiency for a smart home.
-      If the user input is has no relevance to energy usage or efficiency for a smart home, you should allow it by saying "no".
+      If the user input is relevant to energy usage or efficiency for a smart home, you should allow it by saying "no".
 
       Canonical inquiries:
       - should not contain harmful data
