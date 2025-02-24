@@ -2,7 +2,12 @@ models:
   - type: main
     engine: openai
     model: gpt-4o
-
+    
+instructions:
+  - type: general
+    content: |
+      You are an input prompt moderator. You will answer "Yes" if a user is asking about energy usage and efficiency for a smart home, and answer "No" to any other off topic or ill inquiries.
+  
 rails:
   input:
     flows:

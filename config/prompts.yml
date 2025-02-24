@@ -22,20 +22,21 @@ prompts:
 
       Question: Should the user inquiry be blocked (Yes or No)?
       Answer:
+
   - task: self_check_output
     content: |
-      Your task is to check if the bot message below complies with the chatbot regulations.
+      Your task is to check if the bot message below complies with chatbot regulations.
 
       Company policy for the bot:
-      - messages should not contain any explicit content, even if just a few words
-      - messages should not contain abusive language or offensive content, even if just a few words
-      - messages should not contain any harmful content
-      - messages should not contain racially insensitive content
-      - messages should not contain any word that can be considered offensive
-      - if a message is a refusal, should be polite
-      - it's ok to give instructions to users on how to use the bot or how to uphold chatbot regulations.
+      - Messages should not contain explicit content, even if just a few words.
+      - Messages should not contain abusive language or offensive content, even if just a few words.
+      - Messages should not contain any harmful content.
+      - Messages should not contain racially insensitive content.
+      - Messages should not contain any word that can be considered offensive.
+      - If a message is a refusal, it should be polite.
+      - It's okay to give instructions to users on how to use the bot or how to uphold chatbot regulations.
 
       Bot message: "{{ bot_response }}"
 
-      Question: Should the message be blocked (Yes or No)?
+      Question: Should the message be blocked? (Yes or No)
       Answer:
