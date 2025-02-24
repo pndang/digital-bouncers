@@ -1,0 +1,37 @@
+1. Total Amount Due/Balance Due: The total dollar amount based your usage, fees and services. This line item is usually accompanied with a due date when the payment must be processed.
+
+2. Kilowatt-hours (kWh): A watt is a measure for electric power and a kilowatt (kW) is one thousand of those. A kilowatt-hour (kWh) is equal to 1,000 watts of power for a one-hour time period.
+
+3. Days Served (# of days): Billing period for which your electric meter was read. Usually 30 or 31 days, but this can vary.
+
+4. Average Monthly/Yearly Temperature: Weather has a big impact on your energy usage, as half of your bill could go toward heating/cooling. The greater the difference between your thermostat setting and the outside temperature, the more energy you’re using. During extreme temperatures, your bill will likely be higher.
+
+5. Usage/Consumption: The difference between your previous and current meter readings is the electricity usage for the current billing period.
+
+6. Electric Usage History (Chart/Graph): A chart that depicts your past energy use, detailing important information like average daily usage, cost per day for the current bill or total usage by month. This is a great tool for learning more about your usage patterns.
+
+7. Meter Number (Meter #): Your meter number is unique to your electric meter and is usually stamped or printed at the bottom of the face plate of the meter on your home.
+
+8. Meter Readings: Most bills include both the previous month’s meter reading and the current month’s meter reading. The difference between the two is the kWh utilized in the current period.
+
+9. (Meter) Multiplier/Constant: This is applied to certain types of customers to determine usage. For most homes, the multiplier is 1. If you don’t see this on your bill, it’s not something to be concerned with as it has greater relevance to business customers.
+
+10. Next Scheduled Read Date: This is the scheduled date for your electricity meter to be read and charted for your next bill. Smart meters have allowed power companies to remotely read meters, saving time and resources usually needed to read meters in person.
+
+11. Other Fees (Meter Charge, Customer Charge/Energy Charge): These are usually fixed costs to help recover your power company’s costs of serving you, including meter reading, billing and administration. Like the T&D charges, these will vary depending on region.
+
+12. T&D, Distribution Delivery Charge, Transmission Service Charge/Cost Recovery: These charges and fees have to do with the cost to deliver electricity from power-generating facilities to electric substations and then ultimately to your home. These will vary significantly depending on your region but will often include “distribution” or “transmission” in the name.
+
+13. Ways to Pay/Payment Plans/Options: Your power company may provide various ways to pay your bill, such as through an app, the mail or at an in-person location. Your power company may also offer payment plans if you’re having difficulty paying your bill.
+
+14. Financial/Government Assistance: In some cases, power companies provide assistance when you’re having difficulty paying your electric bill. If you are already receiving benefits from a government assistance program, you may qualify for bill payment assistance.
+
+15. Electric Supply Choices: Information on how to choose a supplier – if that’s something available in your area. Even if you’re not interested in choosing a different supplier, you could learn more about the rate you pay and learn about additional ways to conserve energy in this section.
+
+16. Tips for Energy Efficiency: Energy efficiency involves making changes that maintain your home’s comfort while reducing energy use. Sometimes, power companies will include these types of tips on your bill to encourage you to take energy-efficient actions at home.
+
+17. Home Energy Audit: A free or low-cost energy assessment can help you find many ways to improve the comfort and efficiency of your home. Power companies sometimes include information on how to begin on your bill.
+
+18. Rate(s): You may have the option to enroll in a variety of pricing plans that make it possible to save money by controlling how much electricity you use at different times of the day or week.
+
+19. Renewable Energy Adjustment: Your area may have legislation that requires a certain percentage of renewable energy, such as solar and wind. This line item helps fund those measures.

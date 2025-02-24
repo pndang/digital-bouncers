@@ -16,3 +16,19 @@ rails:
   output:
     flows:
       - self check output
+
+  conversation:
+    flows:
+      - name: classification_flow
+        steps:
+          - WHEN user_intent("classify_bill_explanation")
+            THEN
+              run "classify_bill_explanation"
+              
+      - name: bill_explanation_flow
+        steps:
+          - WHEN user_intent("bill_explanation")
+            THEN 
+              run "bill_explanation"
+          - THEN  
+              run "rag_eval"

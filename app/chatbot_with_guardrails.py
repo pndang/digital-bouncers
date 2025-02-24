@@ -12,15 +12,16 @@ from langchain.chat_models import ChatOpenAI
 
 from nemoguardrails import LLMRails, RailsConfig
 
+from dotenv import load_dotenv
 # Load secrets from env vars
+load_dotenv()
+
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_NAME = os.getenv("DB_NAME")
 OPENAI_API_KEY = os.getenv("API_KEY")
-DB_URI = os.getenv("DB_URI")
 
-# postgreSQL database connection params
 db_params = {
     "dbname": DB_NAME,
     "user": DB_USER,
@@ -28,9 +29,7 @@ db_params = {
     "host": DB_HOST,
     "port": "5432"
 }
-
-# create the database connection
-db = SQLDatabase.from_uri(DB_URI)
+db = SQLDatabase.from_uri(f'postgresql://{db_params["user"]}:{db_params["password"]}@{db_params["host"]}:{db_params["port"]}/{db_params["dbname"]}', include_tables=["smart_home_data"])
 
 # define SQL query
 query = """
@@ -80,18 +79,21 @@ if prompt := st.chat_input("What is up?"):
         if prompt:
             print(prompt)
             
-            import openai
-            os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-            openai.api_key = OPENAI_API_KEY  
+            # import openai
+            # os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+            # openai.api_key = OPENAI_API_KEY  
 
             # Load NeMo Guardrails config
             config = RailsConfig.from_path("config")
+            #print("DEBUG: Loaded Prompts ->", config.prompts) 
             rails = LLMRails(config)
             
             check_input = rails.generate(messages=[{
                 "role": "user",
                 "content": prompt
             }])
+
+
 
             print(f"Pass input moderation: {check_input['content']}")
 
@@ -104,4 +106,3 @@ if prompt := st.chat_input("What is up?"):
         # st.markdown(response)
 
     # st.session_state.messages.append({"role": "assistant", "content": response})
-A

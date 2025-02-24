@@ -16,6 +16,11 @@ from nemoguardrails import LLMRails, RailsConfig
 
 load_dotenv()
 
+
+with open("app/bill_explanation.txt", "r", encoding="utf-8") as f:
+    bill_explanation_text = f.read()
+
+
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
@@ -87,9 +92,62 @@ if prompt := st.chat_input("What is up?"):
 
     with st.chat_message("assistant"):
         if to_answer:
-            print("THIS WAS THE INVOKED PROMPT", agent_executor.invoke(prompt))
-            response = agent_executor.invoke(prompt)['output']  
-            ### Put output guardrail here?
-            st.markdown(response)
+        
+            classification = rails.generate(
+                messages=[
+                    {
+                        "role": "assistant",
+                        "content": """You are a strict classification assistant. 
+            Respond with exactly one of the following tokens on a single line:
+            - bill_explanation
+            - not_bill_explanation
 
-    # st.session_state.messages.append({"role": "assistant", "content": response})
+            No other text, words, or punctuation. Do NOT provide explanations. 
+            You must choose which label matches the user's request about explaining an electric bill.
+            No other text. No explanations. No punctuation.
+
+            Example:
+
+            User's Query: "How do I read the supply charges line on my electricity bill?"
+            Your Classification: "bill_explanation"
+
+            User's Query: "What's your favorite movie?"
+            Your Classification: "not_bill_explanation"
+            """
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+
+            label = classification["content"].strip().lower()
+            print("Check Label: " + label)
+
+            if label == "bill_explanation":
+                bill_answer = rails.generate(
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": f"""Below is reference material about understanding a typical electricity bill.
+                            Use ONLY the following text to answer the user's question. Do not invent info.
+            ---
+            {bill_explanation_text}
+            ---
+            """
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ]
+                )
+
+                final_answer = bill_answer["content"]
+                st.markdown(final_answer)
+            #else:
+                #print("THIS WAS THE INVOKED PROMPT", agent_executor.invoke(prompt))
+                #agent_result = agent_executor.invoke(prompt)['output']
+                #st.markdown(agent_result)
+                #st.session_state.messages.append({"role": "assistant", "content": response})
