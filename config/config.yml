@@ -12,6 +12,7 @@ rails:
   input:
     flows:
       - self check input
+      - check for one question
 
   output:
     flows:

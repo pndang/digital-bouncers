@@ -94,3 +94,16 @@ prompts:
 
       Question: Should the message be blocked? (Yes or No)
       Answer:
+
+  - task: check_for_one-question
+    content: |
+      Your task is to check if the user message below contains only one request/inquiry/question.
+      If the user input only contains one request/inquiry/question, you should allow it by saying "no".
+      If the user input contains more than one request/inquiry/question, you should block the user input by saying "Slow Down! Please ask one question at a time.".
+
+      User message: "{{ user_input }}"
+
+      Question: Should the user inquiry be blocked?
+
+      Answer: 
+
