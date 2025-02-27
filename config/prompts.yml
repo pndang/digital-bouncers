@@ -96,7 +96,7 @@ prompts:
       Question: Should the message be blocked? (Yes or No)
       Answer:
   
-  - task: classify_text2sql
+  - task: classify_sql
     content: |
       Your task is to determine if the user input can be answered using a SQL database query.
 
