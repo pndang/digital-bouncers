@@ -95,7 +95,7 @@ prompts:
       Question: Should the message be blocked? (Yes or No)
       Answer:
 
-  - task: check_for_one-question
+  - task: check_for_one_question
     content: |
       Your task is to check if the user message below contains only one request/inquiry/question.
       If the user input only contains one request/inquiry/question, you should allow it by saying "no".
