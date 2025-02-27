@@ -33,3 +33,7 @@ rails:
               run "bill_explanation"
           - THEN  
               run "rag_eval"
+      - name: text2sql_classification
+        steps:
+          - WHEN user_intent("classify_text2sql")
+            THEN run "classify_text2sql"

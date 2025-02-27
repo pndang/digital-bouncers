@@ -106,4 +106,26 @@ prompts:
       Question: Should the user inquiry be blocked?
 
       Answer: 
+  
+  - task: classify_text2sql
+    content: |
+      Your task is to determine if the user input can be answered using a SQL database query.
 
+      - The query should involve structured data that can be retrieved using SQL.
+      - The query should not be opinion-based or require extra knowledge outside of the databse. 
+      - If the query is suitable for SQL, respond with exactly: text2sql 
+      - If the query is not suitable for SQL, respond with exactly: not_text2_sql
+
+      ### Examples:
+      ✅ "Which appliance consumed the most energy in August?" → text2sql
+      ✅ "What was the total energy consumption for July?" → text2sql
+      ✅ "How much power did my fridge use last week?" → text2sql
+      ❌ "How can I reduce my energy bill?" → not_text2sql
+      ❌ "What are some energy-saving tips?" → not_text2sql
+      ❌ "Why is my bill so high?" → not_text2sql
+
+      User query: "{{ user_input }}"
+
+      Answer:
+
+  
