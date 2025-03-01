@@ -1,0 +1,29 @@
+models:
+  - type: main
+    engine: openai
+    model: gpt-4o
+
+intents:
+  - name: classify_bill_explanation
+    description: |
+      Determines if the user is asking for an explanation of their electricity bill.
+    params:
+      user_input: str
+    prompt:
+      task: classify_bill_explanation
+
+  - name: bill_explanation
+    description: |
+      Handles user queries related to electricity bill explanations.
+    params:
+      user_input: str
+    prompt:
+      task: bill_explanation
+
+  - name: rag_eval
+    description: |
+      Evaluates the correctness of the generated RAG response.
+    params:
+      user_input: str
+    prompt:
+      task: rag_eval
