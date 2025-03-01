@@ -54,7 +54,10 @@ agent_executor = create_sql_agent(
     toolkit=db_toolkit,
     verbose=True,
     agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    
 )
+
+agent_executor.handle_parsing_errors = True
 
 st.title("Digital Bouncers Smart Home Assistant")
 
@@ -83,22 +86,23 @@ if prompt := st.chat_input("What is up?"):
             print(check_input)
             print(f"Pass input moderation: {check_input['content']}")
             if check_input['content'] == "I'm sorry, I can't respond to that.":
+                #st.markdown(f"{check_input['content']}")
                 to_answer = False
             if check_input['content'] == 'SQL':
                 to_sql = True
 
-            print(rails.explain().print_llm_calls_summary())
-            st.markdown(f"Pass input moderation: {check_input['content']}")
+            #print(rails.explain().print_llm_calls_summary())
+            #st.markdown(f"Pass input moderation: {check_input['content']}")
 
     with st.chat_message("assistant"):
+        if to_answer == False:
+            st.markdown("I'm sorry, I can't respond to that.")
+            st.session_state.messages.append({"role": "assistant", "content": "I'm sorry, I can't respond to that."})
         if to_answer:
-            # classify_sql = rails.generate(messages=[{"role": "user", "content": prompt}])
-            # print(classify_sql)
             agent_result = None
             if to_sql:
                 agent_result = agent_executor.invoke(prompt, handle_parsing_errors=True)['output']
             else:
-                # Answer is using a general LLM Call
                 agent_result = llm.predict(prompt)
             st.markdown(agent_result)
             st.session_state.messages.append({"role": "assistant", "content": agent_result})
