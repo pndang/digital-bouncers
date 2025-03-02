@@ -4,6 +4,7 @@ import psycopg2
 import pandas as pd
 import os
 from dotenv import load_dotenv
+import base64
 
 from langchain.agents import create_sql_agent
 from langchain.utilities import SQLDatabase
@@ -54,6 +55,46 @@ agent_executor = create_sql_agent(
 )
 
 agent_executor.handle_parsing_errors = True
+
+
+
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("app/style.css")
+
+def get_base64(file_path):
+    with open(file_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+def add_logo():
+    img_base64 = get_base64("app/pic/digital_bouncers_transparent.png")
+    st.markdown(
+        f"""
+        <style>
+        .custom-logo-container {{
+            position: fixed;
+            top: 40px;
+            left: 70px;
+            z-index: 1000;
+        }}
+        .custom-logo-container img {{
+            width: 250px;  /* Make logo bigger */
+            height: auto;
+        }}
+        </style>
+        <div class="custom-logo-container">
+            <img src="data:image/png;base64,{img_base64}">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+add_logo()
+
+
+
 
 st.title("Digital Bouncers Smart Home Assistant")
 
