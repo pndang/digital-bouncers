@@ -97,6 +97,29 @@ add_logo()
 
 
 st.title("Digital Bouncers Smart Home Assistant")
+with st.sidebar:
+    st.markdown("## What does this smart home assistant do?")
+    st.markdown(
+        """
+        This assistant has been trained on your home's past year of energy consumption data. You can ask about your historical
+        consumption patterns, recommendations on how to save energy, as well as other energy related inquiries like utility
+        bills.
+        
+        Example prompts:
+        - *Which part of the house consumed the most energy in August?*
+        - *What recommendations do you have to save energy in the kitchen?*
+        - *Please explain what T&D is on my utility bill.*
+        """
+    )
+    st.markdown("## Guidelines")
+    st.markdown(
+        """
+        - Ask questions which are relevant to your home's energy consumption.
+        - Please limit your requests to 1 question per message.
+        - Be polite, and do not include anything inappropriate or offensive in your message.
+        - If any of these are violated, the assistant will not be able to answer your request.
+        """
+    )
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
