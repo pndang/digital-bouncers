@@ -1,0 +1,53 @@
+/* style.css */
+
+/* Override the main body background and text color */
+body {
+    background-color: #1E1E1E !important;
+    color: #FFFFFF !important;
+}
+
+/* Remove the top-right hamburger menu (optional) */
+[data-testid="stToolbar"] {
+    visibility: hidden;
+}
+
+/* Adjust Streamlit’s main container (where elements like st.title, st.write go) */
+[data-testid="stAppViewContainer"] {
+    background-color: #1E1E1E !important;
+    color: #FFFFFF !important;
+}
+
+/* Sidebar background and text color */
+[data-testid="stSidebar"] {
+    background-color: #242526 !important;
+    color: #FFFFFF !important;
+}
+
+/* Center text in the top status area (optional) */
+[data-testid="stHeader"] div.block-container {
+    text-align: center;
+}
+
+/* Customize input controls (e.g. text boxes, sliders, etc.) */
+.stTextInput > div > div > input {
+    background-color: #333333 !important;
+    color: #FFFFFF !important;
+    border: none;
+}
+
+/* Customize Streamlit's download button */
+.stDownloadButton > button {
+    background-color: #333333 !important;
+    color: #FFFFFF !important;
+    border: none;
+}
+
+.stDownloadButton > button:hover {
+    background-color: #444444 !important;
+}
+
+/* Customize tables (optional) */
+[data-testid="stTable"] table {
+    background-color: #333333;
+    color: #FFFFFF;
+}
