@@ -218,16 +218,16 @@ if prompt := st.chat_input("What is up?"):
             else:
                 # 1) Classification step
                 classification_label = classify_bill_question(prompt)
-                st.write(f"DEBUG: classification_label => {classification_label}")
+                #st.write(f"DEBUG: classification_label => {classification_label}")
 
                 if classification_label == "bill_explanation":
                     # 2) RAG
                     draft_answer = generate_rag_answer(prompt, bill_explanation_text)
-                    st.write(f"DEBUG: RAG draft => {draft_answer}")
+                    #st.write(f"DEBUG: RAG draft => {draft_answer}")
 
                     # 3) RAG_eval
                     eval_result = evaluate_rag_answer(prompt, bill_explanation_text, draft_answer)
-                    st.write(f"DEBUG: RAG Eval => {eval_result}")
+                    #st.write(f"DEBUG: RAG Eval => {eval_result}")
 
                     # If "ANSWER OK", keep draft. If "REVISE ANSWER:", keep that
                     if eval_result.startswith("ANSWER OK"):

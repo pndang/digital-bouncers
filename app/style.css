@@ -4,6 +4,8 @@
 body {
     background-color: #1E1E1E !important;
     color: #FFFFFF !important;
+    font-size: 18px;           /* Increase overall text size */
+    line-height: 1.6;
 }
 
 /* Remove the top-right hamburger menu (optional) */
@@ -29,11 +31,33 @@ body {
 }
 
 /* Customize input controls (e.g. text boxes, sliders, etc.) */
-.stTextInput > div > div > input {
+/*.stTextInput > div > div > input {
     background-color: #333333 !important;
     color: #FFFFFF !important;
     border: none;
+}*/
+
+
+/* Make both user and assistant text bars bright white */
+.stChatMessage {
+    background-color: #FFFFFF !important; /* Pure white */
+    color: #000000 !important;  /* Black text for contrast */
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
 }
+
+/* Ensure assistant messages have black text */
+.stChatMessage.assistant {
+    color: #000000 !important;
+}
+
+/* Make user messages (input prompts) match */
+.stChatMessage.user {
+    background-color: #FFFFFF !important; /* Pure white */
+    color: #000000 !important;
+}
+
 
 /* Customize Streamlit's download button */
 .stDownloadButton > button {
