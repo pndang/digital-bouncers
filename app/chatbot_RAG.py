@@ -199,21 +199,24 @@ if prompt := st.chat_input("What is up?"):
             print("Nemo moderation output:", check_input)
             print(f"Pass input moderation: {check_input['content']}")
             if check_input['content'] == "I'm sorry, I can't respond to that.":
+                st.markdown("Refusing to answer")
                 to_answer = False
             if check_input['content'] == 'SQL':
                 to_sql = True
             #print(rails.explain().print_llm_calls_summary())
-            #st.markdown(f"Pass input moderation: {check_input['content']}")                
+            st.markdown(f"NeMo input moderation: {check_input['content']}")                
 
     with st.chat_message("assistant"):
+
         if to_answer == False:
             st.markdown("I'm sorry, I can't respond to that.")
             st.session_state.messages.append({"role": "assistant", "content": "I'm sorry, I can't respond to that."})
         else:
             # If Nemo says "SQL", do text2sql approach
             if to_sql:
+                st.markdown("Initiated Text-2-SQL workflow")
                 agent_result = agent_executor.invoke(prompt, handle_parsing_errors=True)['output']
-                st.markdown(agent_result)
+                st.markdown(f"Answer: {agent_result}")
                 st.session_state.messages.append({"role": "assistant", "content": agent_result})
             else:
                 # 1) Classification step
@@ -221,6 +224,9 @@ if prompt := st.chat_input("What is up?"):
                 #st.write(f"DEBUG: classification_label => {classification_label}")
 
                 if classification_label == "bill_explanation":
+
+                    st.markdown("Initiated RAG workflow")
+
                     # 2) RAG
                     draft_answer = generate_rag_answer(prompt, bill_explanation_text)
                     #st.write(f"DEBUG: RAG draft => {draft_answer}")
@@ -231,17 +237,23 @@ if prompt := st.chat_input("What is up?"):
 
                     # If "ANSWER OK", keep draft. If "REVISE ANSWER:", keep that
                     if eval_result.startswith("ANSWER OK"):
+                        st.markdown("RAG Response Accepted")
                         final_answer = draft_answer
                     elif eval_result.startswith("REVISE ANSWER:"):
+                        st.markdown("RAG Response Revised")
                         final_answer = eval_result
                     else:
+                        st.markdown("RAG Response Accepted")
                         final_answer = draft_answer  # fallback
 
-                    st.markdown(final_answer)
+                    st.markdown(f"Answer: {final_answer}")
                     st.session_state.messages.append({"role": "assistant", "content": final_answer})
-
+ 
                 else:
+
+                    st.markdown("Initiated fallback mechanism")
+
                     # Not a bill explanation => fallback to normal approach
                     fallback_answer = llm.predict(prompt)
-                    st.markdown(fallback_answer)
+                    st.markdown(f"Answer: {fallback_answer}")
                     st.session_state.messages.append({"role": "assistant", "content": fallback_answer})

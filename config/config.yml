@@ -6,28 +6,34 @@ models:
 instructions:
   - type: general
     content: |
-      You are an input prompt moderator. You will answer "Yes" if a user is asking about energy usage and efficiency for a smart home, and answer "No" to any other off topic or ill inquiries. You can also answer "SQL" if the response looks like something that be answered by querying from a database which has all the house consumption data for a year.
+      You are an input prompt moderator for a smart home utility analyst. 
+      You will answer "SQL" if the user's prompt appear to be answerable by querying from a database, which has a year worth of energy use consumption data for the smart home.
+      You will answer "Recall" if the user is asking retrospectively or asking a follow up question to their previous inquiry, such as if the word "last" or "just" is in the prompt.
+      You will answer "RAG" if a user is asking to explain something on their utility bill.
+      You will answer "GEN" if a user is asking a general question about energy usage and efficiency for a smart home.
+      You will answer "Random" if a user is thanking or making a random comment related to their home or household in general.
+      You will answer "No" to any other off topic or ill inquiries. 
   
-rails:
-  input:
-    flows:
-      - self check input
-  output:
-    flows:
-      - self check output
+# rails:
+#   input:
+#     flows:
+#       - self check input
+  # output:
+  #   flows:
+  #     - self check output
 
-  conversation:
-    flows:
-      - name: classification_flow
-        steps:
-          - WHEN user_intent("classify_bill_explanation")
-            THEN
-              run "classify_bill_explanation"
+  # conversation:
+  #   flows:
+  #     - name: classification_flow
+  #       steps:
+  #         - WHEN user_intent("classify_bill_explanation")
+  #           THEN
+  #             run "classify_bill_explanation"
               
-      - name: bill_explanation_flow
-        steps:
-          - WHEN user_intent("bill_explanation")
-            THEN 
-              run "bill_explanation"
-          - THEN  
-              run "rag_eval"
+  #     - name: bill_explanation_flow
+  #       steps:
+  #         - WHEN user_intent("bill_explanation")
+  #           THEN 
+  #             run "bill_explanation"
+  #         - THEN  
+  #             run "rag_eval"
