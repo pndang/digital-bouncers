@@ -14,10 +14,11 @@ instructions:
       You will answer "Random" if a user is thanking or making a random comment related to their home or household in general.
       You will answer "No" to any other off topic or ill inquiries. 
   
-# rails:
-#   input:
-#     flows:
-#       - self check input
+rails:
+  input:
+    flows:
+      - self check input
+
   # output:
   #   flows:
   #     - self check output

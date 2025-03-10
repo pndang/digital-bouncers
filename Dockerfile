@@ -22,4 +22,4 @@ ENV API_KEY=""
 ENV DB_URI=""
 
 # Run the Streamlit app
-CMD ["streamlit", "run", "app/chatbot_with_guardrails.py"]
+CMD ["streamlit", "run", "app/main.py"]
