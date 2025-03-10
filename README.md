@@ -10,7 +10,7 @@ This repository contains the research, experimentation, and creation of our chat
 We set up a Docker Image for users to easily pull and run the files necessary. To interact with our chatbot, go to your terminal, run the following lines of code, and replace the strings in the brackets with your own credentials. 
 1. `echo [GHCR read token] | docker login ghcr.io -u pndang --password-stdin`
 2. `docker pull ghcr.io/pndang/final-project:latest`
-3. `docker run --rm -p 8501:8501 -e DB_USER=[DB_USER] -e DB_PASSWORD=[DB_PASSWORD] -e DB_HOST=[DB_HOST] -e DB_NAME=[DB_NAME] -e API_KEY=[API_KEY] -e DB_URI=[DB_URI] ghcr.io/pndang/final-project:latest`
+3. `docker run --rm -p 8501:8501 -e DB_USER=[DB_USER] -e DB_PASSWORD=[DB_PASSWORD] -e DB_HOST=[DB_HOST] -e DB_NAME=[DB_NAME] -e OPENAI_API_KEY=[API_KEY] -e DB_URI=[DB_URI] ghcr.io/pndang/final-project:latest`
 
 If everything has run successfully, then you should be greeted with the following screen in your localhost:
 ![Opening Screen](/images/opening_screen.png)
