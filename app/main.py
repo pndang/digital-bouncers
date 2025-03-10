@@ -144,12 +144,16 @@ for message in st.session_state.messages:
 def text_to_sql(state: MessagesState):
 
     system_prompt = (
-       "You are a helpful assistant helping to generate SQL queries to answer the homeowner's question about energy use."
+       "You are a helpful assistant helping to generate SQL queries to answer the homeowner's question about energy use. Below is the homeowner's question, followed by context from the past three interactions."
     )
     
     # construct persistent prompt
-    full_prompt = [SystemMessage(content=system_prompt)] + state['messages'][-5:]
+    full_prompt = [SystemMessage(content=system_prompt)] + state['messages'][-4:][::-1]
+
     result = agent_executor.invoke(full_prompt, handle_parsing_errors=True)['output']
+    print("********************************")
+    print(full_prompt)
+    print("********************************")
     return {"messages": result}
 
 
@@ -176,22 +180,28 @@ User question: {question}
 def generate_rag_answer(state: MessagesState):
 
     system_prompt = (
-       "You are a helpful assistant helping the homeowner understand utility bills."
+       "You are a helpful assistant helping the homeowner understand utility bills. Below is the homeowner's question, followed by context from the past three interactions"
     )
     
     # construct persistent prompt
-    full_prompt = [SystemMessage(content=system_prompt)] + state['messages'][-5:]
+    full_prompt = [SystemMessage(content=system_prompt)] + state['messages'][-4:][::-1]
+
+    print(full_prompt)
+
     result = llm.invoke(full_prompt)
     return {"messages": result}
 
 def general_answer(state: MessagesState):
 
     system_prompt = (
-       "You are a helpful assistant helping the homeowner answer general questions about energy usage, savings, and efficiency."
+       "You are a helpful assistant helping the homeowner answer general questions about energy usage, savings, and efficiency. Below is the homeowner's question, followed by context from the past three interactions"
     )
     
     # construct persistent prompt
-    full_prompt = [SystemMessage(content=system_prompt)] + state['messages'][-5:]
+    full_prompt = [SystemMessage(content=system_prompt)] + state['messages'][-4:][::-1]
+
+    print(full_prompt)
+
     result = llm.invoke(full_prompt)
     return {"messages": result}
 
@@ -235,9 +245,9 @@ gen_workflow.add_node("model", general_answer)
 gen_workflow.add_edge(START, "model")
 
 # initiate thread_ids
-sql_thread = 55
-rag_thread = 78
-gen_thread = 88
+sql_thread = 44
+rag_thread = 45
+gen_thread = 46
 
 if "curr_thread" not in st.session_state:
     st.session_state.curr_thread = sql_thread
@@ -279,7 +289,10 @@ if prompt := st.chat_input("What is up?"):
             elif check_input['content'] == 'Random':
                 random = True
 
-            # print(rails.explain().print_llm_calls_summary())
+            print("##########################")
+            print(rails.explain().print_llm_calls_summary())
+            print("##########################")
+
             st.markdown(f"NeMo input moderator: {check_input['content']}")                
 
     with st.chat_message("assistant"):
@@ -300,12 +313,12 @@ if prompt := st.chat_input("What is up?"):
 
                 print(f"curr_thread: {curr_thread}")
 
-                 # compile the workflow with the Postgres checkpointer
-                if curr_thread == 55:
+                # compile the workflow with the Postgres checkpointer
+                if curr_thread == 44:
                     app = sql_workflow.compile(checkpointer=checkpointer)
-                elif curr_thread == 78:
+                elif curr_thread == 45:
                     app = rag_workflow.compile(checkpointer=checkpointer)
-                elif curr_thread == 88:
+                elif curr_thread == 46:
                     app = gen_workflow.compile(checkpointer=checkpointer)
 
                 config = {"configurable": {"thread_id": str(st.session_state.curr_thread)}}
